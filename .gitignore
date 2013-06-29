@@ -1,0 +1,11 @@
+.settings
+packrat/bin
+packrat/gen
+packrat/target
+packrat/.settings
+packrat-it/bin
+packrat-it/gen
+packrat-it/target
+packrat-it/.settings
+packrat-it/tmp
+target
