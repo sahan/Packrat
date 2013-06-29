@@ -29,7 +29,7 @@ package com.lonepulse.packrat;
  * <br><br> 
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class PropertyNotFoundException extends RuntimeException {
+public class PropertyNotFoundException extends PackratRuntimeException {
 
 
 	private static final long serialVersionUID = 2314517192321917002L;
@@ -49,7 +49,7 @@ public class PropertyNotFoundException extends RuntimeException {
 	}
 
 	/**
-	 * <p>See {@link RuntimeException#RuntimeException(Throwable)}.
+	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(Throwable)}.
 	 *
 	 * @since 1.1.0
 	 */
@@ -58,7 +58,7 @@ public class PropertyNotFoundException extends RuntimeException {
 	}
 
 	/**
-	 * <p>See {@link RuntimeException#RuntimeException(String, Throwable)}.
+	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(String, Throwable)}.
 	 *
 	 * @since 1.1.0
 	 */

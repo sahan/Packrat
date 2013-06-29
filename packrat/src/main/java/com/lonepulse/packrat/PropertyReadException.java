@@ -30,7 +30,7 @@ import com.lonepulse.packrat.PropertyReader.PROPERTY;
  * <br><br> 
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class PropertyReadException extends RuntimeException {
+public class PropertyReadException extends PackratRuntimeException {
 
 	
 	private static final long serialVersionUID = 2295492366218411918L;
@@ -51,14 +51,14 @@ public class PropertyReadException extends RuntimeException {
 	}
 	
 	/**
-	 * <p>See {@link RuntimeException#RuntimeException()}.
+	 * <p>See {@link PackratRuntimeException#PackratRuntimeException()}.
 	 * 
 	 * @since 1.1.0
 	 */
 	public PropertyReadException() {}
 
 	/**
-	 * <p>See {@link RuntimeException#RuntimeException(String)}.
+	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(String)}.
 	 *
 	 * @since 1.1.0
 	 */
@@ -67,7 +67,7 @@ public class PropertyReadException extends RuntimeException {
 	}
 
 	/**
-	 * <p>See {@link RuntimeException#RuntimeException(Throwable)}.
+	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(Throwable)}.
 	 *
 	 * @since 1.1.0
 	 */
@@ -76,7 +76,7 @@ public class PropertyReadException extends RuntimeException {
 	}
 
 	/**
-	 * <p>See {@link RuntimeException#RuntimeException(String, Throwable)}.
+	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(String, Throwable)}.
 	 *
 	 * @since 1.1.0
 	 */

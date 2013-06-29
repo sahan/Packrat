@@ -30,14 +30,14 @@ import java.io.FileNotFoundException;
  * <br><br> 
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class PropertyFileNotFoundException extends RuntimeException {
+public class PropertyFileNotFoundException extends PackratRuntimeException {
 
 
 	private static final long serialVersionUID = 412578574206793676L;
 
 	
 	/**
-	 * <p>See {@link RuntimeException#RuntimeException()}.
+	 * <p>See {@link PackratRuntimeException#PackratRuntimeException()}.
 	 * 
 	 * @since 1.1.0
 	 */
@@ -48,7 +48,7 @@ public class PropertyFileNotFoundException extends RuntimeException {
 	}
 
 	/**
-	 * <p>See {@link RuntimeException#RuntimeException(String)}.
+	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(String)}.
 	 *
 	 * @since 1.1.0
 	 */
@@ -57,7 +57,7 @@ public class PropertyFileNotFoundException extends RuntimeException {
 	}
 
 	/**
-	 * <p>See {@link RuntimeException#RuntimeException(Throwable)}.
+	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(Throwable)}.
 	 *
 	 * @since 1.1.0
 	 */
@@ -66,7 +66,7 @@ public class PropertyFileNotFoundException extends RuntimeException {
 	}
 
 	/**
-	 * <p>See {@link RuntimeException#RuntimeException(String, Throwable)}.
+	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(String, Throwable)}.
 	 *
 	 * @since 1.1.0
 	 */
