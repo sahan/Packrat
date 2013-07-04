@@ -20,7 +20,6 @@ package com.lonepulse.packrat;
  * #L%
  */
 
-import java.io.Serializable;
 import java.util.Set;
 
 import android.content.Context;
@@ -28,7 +27,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.lonepulse.packrat.PropertyReader.PROPERTY;
+import com.lonepulse.packrat.config.PropertyReader;
+import com.lonepulse.packrat.config.PropertyReader.PROPERTY;
 
 /**
  * <p>This is a concrete implementation of {@link PersistenceUnit} which 
@@ -41,6 +41,7 @@ import com.lonepulse.packrat.PropertyReader.PROPERTY;
 public abstract class SQLitePersistenceUnit extends SQLiteOpenHelper 
 implements PersistenceUnit {
 
+	//TODO support database downgrades?
 	
 	/**
 	 * <p>See {@link SQLiteOpenHelper#SQLiteOpenHelper(Context, String, CursorFactory, int)}.
@@ -48,7 +49,7 @@ implements PersistenceUnit {
 	public SQLitePersistenceUnit(Context context) {
 		
 		super(context, PropertyReader.read(context, PROPERTY.NAME), 
-			   null, Integer.parseInt(PropertyReader.read(context, PROPERTY.VERSION)));
+			  null, Integer.parseInt(PropertyReader.read(context, PROPERTY.VERSION)));
 	}
 	
 	/**
@@ -57,7 +58,7 @@ implements PersistenceUnit {
 	@Override
 	public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-		Set<Class<Serializable>> entitySet = entities();
+		Set<Class<Object>> entitySet = entities();
 		
 		//TODO read metadata and create schema
 	}
@@ -68,8 +69,8 @@ implements PersistenceUnit {
 	@Override
 	public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
 
-		Set<Class<Serializable>> entitySet = entities();
+		Set<Class<Object>> entitySet = entities();
 		
-		//TODO read metadata and create schema
+		//TODO read metadata and upgrade schema
 	}
 }

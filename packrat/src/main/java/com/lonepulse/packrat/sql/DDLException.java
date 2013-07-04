@@ -1,4 +1,4 @@
-package com.lonepulse.packrat;
+package com.lonepulse.packrat.sql;
 
 /*
  * #%L
@@ -22,47 +22,50 @@ package com.lonepulse.packrat;
 
 
 /**
- * <p>This {@link RuntimeException} is thrown when a particular property 
- * is not found in <b>packrat.properties</b>. 
+ * <p>This exception is thrown due to unrecoverable errors in generating 
+ * <b>Data Definition Language</b> SQL statements.
  * 
  * @version 1.1.0
- * <br><br> 
+ * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class PropertyNotFoundException extends PackratRuntimeException {
+public class DDLException extends SQLBuilderException {
 
 
-	private static final long serialVersionUID = 2314517192321917002L;
+	private static final long serialVersionUID = -7012046687552407994L;
+
 	
-
 	/**
-	 * <p>Takes the missing property and prints a detailed message.
+	 * <p>See {@link SQLBuilderException#SQLBuilderException()}.
 	 *
-	 * @param property
-	 * 			the property which was missing
-	 * 
 	 * @since 1.1.0
 	 */
-	public PropertyNotFoundException(String property) {
-		
-		super("Property " + property + " is missing in the assets directory. ");
+	public DDLException() {}
+
+	/**
+	 * <p>See {@link SQLBuilderException#SQLBuilderException(String)}.
+	 *
+	 * @since 1.1.0
+	 */
+	public DDLException(String detailMessage) {
+		super(detailMessage);
 	}
 
 	/**
-	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(Throwable)}.
+	 * <p>See {@link SQLBuilderException#SQLBuilderException(Throwable)}.
 	 *
 	 * @since 1.1.0
 	 */
-	public PropertyNotFoundException(Throwable throwable) {
+	public DDLException(Throwable throwable) {
 		super(throwable);
 	}
 
 	/**
-	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(String, Throwable)}.
+	 * <p>See {@link SQLBuilderException#SQLBuilderException(String, Throwable)}.
 	 *
 	 * @since 1.1.0
 	 */
-	public PropertyNotFoundException(String detailMessage, Throwable throwable) {
+	public DDLException(String detailMessage, Throwable throwable) {
 		super(detailMessage, throwable);
 	}
 }

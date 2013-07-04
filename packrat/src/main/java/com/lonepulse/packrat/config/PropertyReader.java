@@ -1,4 +1,4 @@
-package com.lonepulse.packrat;
+package com.lonepulse.packrat.config;
 
 /*
  * #%L
@@ -35,7 +35,7 @@ import android.content.Context;
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-final class PropertyReader {
+public final class PropertyReader {
 
 	
 	/**

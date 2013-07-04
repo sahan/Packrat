@@ -1,4 +1,4 @@
-package com.lonepulse.packrat;
+package com.lonepulse.packrat.sql;
 
 /*
  * #%L
@@ -20,25 +20,16 @@ package com.lonepulse.packrat;
  * #L%
  */
 
-import java.util.Set;
 
 /**
- * <p>This contract specifies the services offered on a single <i>persistence 
- * unit</i> having multiple entities with metadata. 
+ * <p>This contract specifies the services offered for generating 
+ * SQL by reading the attributes and metadata on a model. 
  * 
  * @version 1.1.0
- * <br><br> 
+ * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public interface PersistenceUnit {
-	
-	/**
-	 * <p>Override this method to provide {@link Class} types of the set of 
-	 * entities associated with this persistence unit.
-	 * 
-	 * @return the set of entities which this persistence unit encompasses
-	 *
-	 * @since 1.1.0
-	 */
-	public abstract <Model extends Object> Set<Class<Model>> entities();
+public interface SQLBuilder extends DDLPolicy {
+
+	//TODO extend policies for all branches of SQL syntax
 }

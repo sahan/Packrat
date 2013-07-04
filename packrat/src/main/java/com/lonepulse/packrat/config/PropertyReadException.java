@@ -1,4 +1,4 @@
-package com.lonepulse.packrat;
+package com.lonepulse.packrat.config;
 
 /*
  * #%L
@@ -20,7 +20,8 @@ package com.lonepulse.packrat;
  * #L%
  */
 
-import com.lonepulse.packrat.PropertyReader.PROPERTY;
+import com.lonepulse.packrat.PackratRuntimeException;
+import com.lonepulse.packrat.config.PropertyReader.PROPERTY;
 
 /**
  * <p>This {@link RuntimeException} is thrown when a given property 
