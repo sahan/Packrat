@@ -29,7 +29,7 @@ package com.lonepulse.packrat.sql;
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public interface SQLBuilder extends DDLPolicy {
+public interface SQLGenerator extends DDLPolicy {
 
 	//TODO extend policies for all branches of SQL syntax
 }

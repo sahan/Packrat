@@ -1,6 +1,4 @@
-package com.lonepulse.packrat.sql;
-
-import com.lonepulse.packrat.PackratRuntimeException;
+package com.lonepulse.packrat.sql.builder;
 
 /*
  * #%L
@@ -24,50 +22,50 @@ import com.lonepulse.packrat.PackratRuntimeException;
 
 
 /**
- * <p>This exception is thrown due to unrecoverable errors in generating 
- * <b>Data Definition Language</b> SQL statements.
+ * <p>This exception is thrown due to unrecoverable errors in <b>building</b> 
+ * SQL statements using rudimentary {@link String} manipulation.
  * 
  * @version 1.1.0
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class DDLException extends PackratRuntimeException {
+public class MalformedSQLException extends SQLException {
 
 
-	private static final long serialVersionUID = -7012046687552407994L;
+	private static final long serialVersionUID = 563212701694328603L;
 
 	
 	/**
-	 * <p>See {@link PackratRuntimeException#PackratRuntimeException()}.
+	 * <p>See {@link SQLException#SQLBuilderException()}.
 	 *
 	 * @since 1.1.0
 	 */
-	public DDLException() {}
+	public MalformedSQLException() {}
 
 	/**
-	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(String)}.
+	 * <p>See {@link SQLException#SQLBuilderException(String)}.
 	 *
 	 * @since 1.1.0
 	 */
-	public DDLException(String detailMessage) {
+	public MalformedSQLException(String detailMessage) {
 		super(detailMessage);
 	}
 
 	/**
-	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(Throwable)}.
+	 * <p>See {@link SQLException#SQLBuilderException(Throwable)}.
 	 *
 	 * @since 1.1.0
 	 */
-	public DDLException(Throwable throwable) {
+	public MalformedSQLException(Throwable throwable) {
 		super(throwable);
 	}
 
 	/**
-	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(String, Throwable)}.
+	 * <p>See {@link SQLException#SQLBuilderException(String, Throwable)}.
 	 *
 	 * @since 1.1.0
 	 */
-	public DDLException(String detailMessage, Throwable throwable) {
+	public MalformedSQLException(String detailMessage, Throwable throwable) {
 		super(detailMessage, throwable);
 	}
 }

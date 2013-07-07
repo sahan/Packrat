@@ -1,4 +1,4 @@
-package com.lonepulse.packrat.sql;
+package com.lonepulse.packrat.sql.builder;
 
 /*
  * #%L
@@ -31,7 +31,7 @@ import com.lonepulse.packrat.PackratRuntimeException;
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class SQLBuilderException extends PackratRuntimeException {
+public class SQLException extends PackratRuntimeException {
 
 
 	private static final long serialVersionUID = 563212701694328603L;
@@ -42,14 +42,14 @@ public class SQLBuilderException extends PackratRuntimeException {
 	 *
 	 * @since 1.1.0
 	 */
-	public SQLBuilderException() {}
+	public SQLException() {}
 
 	/**
 	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(String)}.
 	 *
 	 * @since 1.1.0
 	 */
-	public SQLBuilderException(String detailMessage) {
+	public SQLException(String detailMessage) {
 		super(detailMessage);
 	}
 
@@ -58,7 +58,7 @@ public class SQLBuilderException extends PackratRuntimeException {
 	 *
 	 * @since 1.1.0
 	 */
-	public SQLBuilderException(Throwable throwable) {
+	public SQLException(Throwable throwable) {
 		super(throwable);
 	}
 
@@ -67,7 +67,7 @@ public class SQLBuilderException extends PackratRuntimeException {
 	 *
 	 * @since 1.1.0
 	 */
-	public SQLBuilderException(String detailMessage, Throwable throwable) {
+	public SQLException(String detailMessage, Throwable throwable) {
 		super(detailMessage, throwable);
 	}
 }

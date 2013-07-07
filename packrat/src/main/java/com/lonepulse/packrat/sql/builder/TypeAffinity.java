@@ -1,0 +1,110 @@
+package com.lonepulse.packrat.sql.builder;
+
+/*
+ * #%L
+ * Packrat
+ * %%
+ * Copyright (C) 2013 Lonepulse
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+
+/**
+ * <p>Identifies the type affinities for a column on an SQLite 3 database table.  
+ * 
+ * @version 1.1.0
+ * <br><br>
+ * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ */
+public enum TypeAffinity {
+
+	/**
+	 * <p>To be used on a column which is to store textual data.
+	 * 
+	 * @since 1.1.0
+	 */
+	TEXT("TEXT"),
+	
+	/**
+	 * <p>To be used on a column which is to store integer data.
+	 * 
+	 * @since 1.1.0
+	 */
+	INTEGER("INTEGER"),
+	
+	/**
+	 * <p>To be used on a column which is to store floating point numerals.
+	 * 
+	 * @since 1.1.0
+	 */
+	REAL("REAL"),
+	
+	/**
+	 * <p>To be used on a column which is to store numeric data.
+	 * 
+	 * @since 1.1.0
+	 */
+	NUMERIC("NUMERIC"),
+	
+	/**
+	 * <p>To be used on a column which shows no interest in any type affinity.
+	 * 
+	 * @since 1.1.0
+	 */
+	NONE("NONE");
+	
+	
+	/**
+	 * <p>The SQL representation of the type affinity.
+	 */
+	private String sql;
+	
+	
+	/**
+	 * <p>Instantiates a new {@link TypeAffinity} and initializes 
+	 * it's {@link #sql} representation.
+	 * 
+	 * @param sql
+	 * 			the SQL representation of this type affinity
+	 *
+	 * @since 1.1.0
+	 */
+	private TypeAffinity(String sql) {
+		
+		this.sql = sql;
+	}
+
+	/**
+	 * <p>Retrieves the SQL representation of this type affinity. It's safe 
+	 * to use {@link #toString()} for retrieving the SQL as it delegates to 
+	 * this method. 
+	 * 
+	 *
+	 * @return the SQL representation of this type affinity
+	 */
+	public String getSql() {
+		
+		return sql;
+	}
+
+	/**
+	 * <p>Delegates to {@link #getSql()}.
+	 */
+	@Override
+	public String toString() {
+
+		return getSql();
+	}
+}
