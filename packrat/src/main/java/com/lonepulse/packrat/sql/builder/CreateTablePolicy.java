@@ -80,11 +80,14 @@ public interface CreateTablePolicy {
 	CreateTablePolicy addColumn(String columnName, TypeAffinity typeAffinity) throws MalformedSQLException;
 	
 	/**
-	 * <p>Adds column constraints to a freshly created column.
+	 * <p>Adds column constraints to a freshly created column using {@link ColumnConstraint}. 
+	 * For example to define a column as <b>unique</b> use {@code ColumnConstraint.UNIQUE}, or 
+	 * to define a <b>default</b> constraint use {@code ColumnConstraint.DEFAULT.withArgs("basic")} 
+	 * (the default value being 'basic' in this example).
 	 *
 	 * @param columnConstraints
-	 * 			the constraints to be applied to the column to be created; 
-	 * 			refer the constants on {@link CreateTablePolicy}
+	 * 			the constraints to be applied to the column to be created; these are {@link SQL} 
+	 * 			segments usually created using {@link ColumnConstraint}  
 	 * 
 	 * @return the current state of the {@link CreateTablePolicy}
 	 * 
@@ -93,5 +96,5 @@ public interface CreateTablePolicy {
 	 * 
 	 * @since 1.1.0
 	 */
-	CreateTablePolicy withConstraints(ColumnConstraint... columnConstraints) throws MalformedSQLException;
+	CreateTablePolicy withConstraints(SQL... columnConstraints) throws MalformedSQLException;
 }

@@ -141,7 +141,7 @@ public class CreateTableTemplate extends AbstractSQLBuilder implements CreateTab
 	 * {@inheritDoc}
 	 */
 	@Override
-	public synchronized CreateTablePolicy withConstraints(ColumnConstraint... columnConstraints) throws MalformedSQLException {
+	public synchronized CreateTablePolicy withConstraints(SQL... columnConstraints) throws MalformedSQLException {
 		
 		throwIfImmutable();
 		
@@ -150,7 +150,7 @@ public class CreateTableTemplate extends AbstractSQLBuilder implements CreateTab
 		
 		if(columnConstraints != null) {
 			
-			for (ColumnConstraint constraint : columnConstraints) {
+			for (SQL constraint : columnConstraints) {
 				
 				sql().append(" ").append(constraint);
 			}
@@ -165,14 +165,12 @@ public class CreateTableTemplate extends AbstractSQLBuilder implements CreateTab
 	@Override
 	public synchronized String build() throws SQLException {
 		
-		throwIfImmutable();
-		
-		if(isCorrupted()) {
-			
+		if(isCorrupted())
 			throw new MalformedSQLException("Invoke createTable() and add at least one column before building. ");
-		}
-
+		
+		throwIfImmutable();
 		setImmutable();
+		
 		return sql().append(" );").toString();
 	}
 	

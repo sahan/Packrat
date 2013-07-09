@@ -29,7 +29,7 @@ package com.lonepulse.packrat.sql.builder;
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public interface SQLBuilder {
+public interface SQLBuilder extends SQL {
 	
 	/**
 	 * <p>Discovers the internal corruption state - i.e. this returns an 
@@ -55,15 +55,6 @@ public interface SQLBuilder {
 	 * @since 1.1.0
 	 */
 	boolean isImmutable();
-	
-	/**
-	 * <p>Retrieves the SQL statement which has been composed so far. 
-	 * 
-	 * @return the SQL statement which has been composed so far
-	 * 
-	 * @since 1.1.0
-	 */
-	String getSQLStatement();
 	
 	/**
 	 * <p>Finalizes the build and outputs the composed SQL string. Any 

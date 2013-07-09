@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public abstract class AbstractSQLBuilder implements SQLBuilder {
+abstract class AbstractSQLBuilder implements SQLBuilder {
 
 	
 	/**
