@@ -22,8 +22,8 @@ package com.lonepulse.packrat.sql.builder;
 
 
 /**
- * <p>A fluent facade which specifies the services offered for <b>creating tables</b> 
- * in schemas using rudimentary string manipulation.  
+ * <p>A fluent facade which specifies the services offered for building SQL statements 
+ * that <b>create tables</b> using rudimentary string manipulation.  
  * 
  * @version 1.1.0
  * <br><br>
@@ -32,8 +32,8 @@ package com.lonepulse.packrat.sql.builder;
 public interface CreateTablePolicy {
 
 	/**
-	 * <p>Initializes the SQL build by specifying the name of the table of the 
-	 * table to be created. 
+	 * <p>Initializes the SQL build by specifying the name of the table 
+	 * to be created. 
 	 *
 	 * @param tableName
 	 * 			the name of the table to be created
@@ -41,7 +41,7 @@ public interface CreateTablePolicy {
 	 * @return the current state of the {@link CreateTablePolicy}
 	 * 
 	 * @throws MalformedSQLException
-	 * 			if this operation has resulted in a corrupt SQL string
+	 * 			if this operation has resulted in a corrupt SQL statement
 	 * 
 	 * @since 1.1.0
 	 */
@@ -54,7 +54,7 @@ public interface CreateTablePolicy {
 	 * @return the current state of the {@link CreateTablePolicy}
 	 * 
 	 * @throws MalformedSQLException
-	 * 			if this operation has resulted in a corrupt SQL string
+	 * 			if this operation has resulted in a corrupt SQL statement
 	 * 
 	 * @since 1.1.0
 	 */
@@ -73,7 +73,7 @@ public interface CreateTablePolicy {
 	 * @return the current state of the {@link CreateTablePolicy}
 	 * 
 	 * @throws MalformedSQLException
-	 * 			if this operation has resulted in a corrupt SQL string
+	 * 			if this operation has resulted in a corrupt SQL statement
 	 * 
 	 * @since 1.1.0
 	 */
@@ -92,7 +92,7 @@ public interface CreateTablePolicy {
 	 * @return the current state of the {@link CreateTablePolicy}
 	 * 
 	 * @throws MalformedSQLException
-	 * 			if this operation has resulted in a corrupt SQL string
+	 * 			if this operation has resulted in a corrupt SQL statement
 	 * 
 	 * @since 1.1.0
 	 */
