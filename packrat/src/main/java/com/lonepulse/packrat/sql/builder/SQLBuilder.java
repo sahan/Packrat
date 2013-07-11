@@ -55,19 +55,4 @@ public interface SQLBuilder extends SQL {
 	 * @since 1.1.0
 	 */
 	boolean isImmutable();
-	
-	/**
-	 * <p>Finalizes the build and outputs the composed SQL string. Any 
-	 * implementation of this method should check to corruption state of the 
-	 * SQL composition by invoking {@link #isCorrupted()} and throw a sub-class 
-	 * of {@link SQLException} if the SQL is indeed corrupt. 
-	 *
-	 * @return the composed SQL string 
-	 * 
-	 * @throws SQLException
-	 * 			if the final build failed due to a corrupt state
-	 * 
-	 * @since 1.1.0
-	 */
-	String build() throws SQLException;
 }

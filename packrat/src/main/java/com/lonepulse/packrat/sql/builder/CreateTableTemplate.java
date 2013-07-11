@@ -85,7 +85,7 @@ public class CreateTableTemplate extends AbstractSQLBuilder implements CreateTab
 	 * {@inheritDoc}
 	 */
 	@Override
-	public CreateTablePolicy ifNotExists() throws MalformedSQLException {
+	public synchronized CreateTablePolicy ifNotExists() throws MalformedSQLException {
 		
 		throwIfImmutable();
 		

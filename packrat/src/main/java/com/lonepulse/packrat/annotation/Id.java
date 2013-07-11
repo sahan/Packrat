@@ -1,8 +1,8 @@
-package com.lonepulse.packrat.sql;
+package com.lonepulse.packrat.annotation;
 
 /*
  * #%L
- * Packrat
+ * IckleBot
  * %%
  * Copyright (C) 2013 Lonepulse
  * %%
@@ -20,32 +20,18 @@ package com.lonepulse.packrat.sql;
  * #L%
  */
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
- * <p>A concrete implementation of {@link DDLPolicy} which generates <b>Data 
- * Definition Language</b> statements for creating and altering schemas.
+ * <p>Identifies the attribute in a model which serves as the primary key.
  * 
  * @version 1.1.0
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class DDLGenerator implements DDLPolicy {
-
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public <Model> StringBuilder create(Class<Model> modelType) throws DDLException {
-		
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public <Model> StringBuilder drop(Class<Model> modelType) throws DDLException {
-		
-		return null;
-	}
-}
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface Id {}

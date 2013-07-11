@@ -1,8 +1,8 @@
-package com.lonepulse.packrat.sql;
+package com.lonepulse.packrat.util;
 
 /*
  * #%L
- * Packrat
+ * RoboZombie
  * %%
  * Copyright (C) 2013 Lonepulse
  * %%
@@ -20,32 +20,23 @@ package com.lonepulse.packrat.sql;
  * #L%
  */
 
+
 /**
- * <p>A concrete implementation of {@link DDLPolicy} which generates <b>Data 
- * Definition Language</b> statements for creating and altering schemas.
+ * <p>Resolves a requirement based on the given parameter.
  * 
  * @version 1.1.0
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class DDLGenerator implements DDLPolicy {
-
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public <Model> StringBuilder create(Class<Model> modelType) throws DDLException {
-		
-		return null;
-	}
+public interface Resolver<Arg, Result> {
 
 	/**
-	 * {@inheritDoc}
+	 * <p>Processes the given argument to find the correct result.
+	 * 
+	 * @param arg
+	 * 			the argument on which the resolution should be attempted
+	 * 
+	 * @return the result of the resolution
 	 */
-	@Override
-	public <Model> StringBuilder drop(Class<Model> modelType) throws DDLException {
-		
-		return null;
-	}
+	Result resolve(Arg arg);
 }

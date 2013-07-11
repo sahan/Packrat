@@ -56,7 +56,7 @@ public class DropTableTemplate extends AbstractSQLBuilder implements DropTablePo
 	 * {@inheritDoc}
 	 */
 	@Override
-	public DropTablePolicy dropTable(String tableName) throws MalformedSQLException {
+	public synchronized DropTablePolicy dropTable(String tableName) throws MalformedSQLException {
 		
 		throwIfImmutable();
 		
