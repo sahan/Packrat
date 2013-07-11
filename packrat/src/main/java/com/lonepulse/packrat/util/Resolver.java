@@ -2,7 +2,7 @@ package com.lonepulse.packrat.util;
 
 /*
  * #%L
- * RoboZombie
+ * Packrat
  * %%
  * Copyright (C) 2013 Lonepulse
  * %%

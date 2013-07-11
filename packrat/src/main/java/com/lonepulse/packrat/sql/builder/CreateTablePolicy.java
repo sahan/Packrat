@@ -29,7 +29,7 @@ package com.lonepulse.packrat.sql.builder;
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public interface CreateTablePolicy {
+public interface CreateTablePolicy extends SQLBuilder {
 
 	/**
 	 * <p>Initializes the SQL build by specifying the name of the table 
@@ -97,18 +97,4 @@ public interface CreateTablePolicy {
 	 * @since 1.1.0
 	 */
 	CreateTablePolicy withConstraints(SQL... columnConstraints) throws MalformedSQLException;
-	
-	/**
-	 * <p>Finalizes the build and outputs the composed SQL string. Any implementation of this method 
-	 * should check to corruption state of the SQL composition by invoking {@link #isCorrupted()} and 
-	 * throw a sub-class of {@link SQLException} if the SQL is indeed corrupt. 
-	 *
-	 * @return the composed SQL string 
-	 * 
-	 * @throws SQLException
-	 * 			if the final build failed due to a corrupt state
-	 * 
-	 * @since 1.1.0
-	 */
-	String build() throws SQLException;
 }

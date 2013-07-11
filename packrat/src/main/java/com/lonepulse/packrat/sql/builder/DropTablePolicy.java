@@ -29,7 +29,7 @@ package com.lonepulse.packrat.sql.builder;
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public interface DropTablePolicy {
+public interface DropTablePolicy extends SQLBuilder {
 
 	/**
 	 * <p>Initializes the SQL build by specifying the name of the table 
