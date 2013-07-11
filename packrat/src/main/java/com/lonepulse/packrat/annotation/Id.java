@@ -2,7 +2,7 @@ package com.lonepulse.packrat.annotation;
 
 /*
  * #%L
- * IckleBot
+ * Packrat
  * %%
  * Copyright (C) 2013 Lonepulse
  * %%
