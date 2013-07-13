@@ -1,6 +1,5 @@
 package com.lonepulse.packrat.sql;
 
-
 /*
  * #%L
  * Packrat

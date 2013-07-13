@@ -26,8 +26,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import android.text.TextUtils;
 
 /**
- * <p>This concrete implementation of {@link AbstractSQLBuilder} provides an 
- * implementation of {@link CreateTablePolicy}.
+ * <p>This concrete implementation of {@link AbstractSQLBuilder} provides an implementation 
+ * of {@link CreateTablePolicy}.</p>
+ * 
+ * <p>The operations on this template are not, please employ your own mechanisms 
+ * for thread safety.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -56,7 +59,7 @@ public class DropTableTemplate extends AbstractSQLBuilder implements DropTablePo
 	 * {@inheritDoc}
 	 */
 	@Override
-	public synchronized DropTablePolicy dropTable(String tableName) throws MalformedSQLException {
+	public DropTablePolicy dropTable(String tableName) throws MalformedSQLException {
 		
 		throwIfImmutable();
 		
@@ -76,7 +79,7 @@ public class DropTableTemplate extends AbstractSQLBuilder implements DropTablePo
 	 * {@inheritDoc}
 	 */
 	@Override
-	public synchronized String build() throws SQLException {
+	public String build() throws SQLException {
 		
 		if(isCorrupted())
 			throw new MalformedSQLException("Invoke dropTable() before building. ");

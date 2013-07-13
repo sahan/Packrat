@@ -26,8 +26,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import android.text.TextUtils;
 
 /**
- * <p>This concrete implementation of {@link AbstractSQLBuilder} provides an 
- * implementation of {@link CreateTablePolicy}.
+ * <p>This concrete implementation of {@link AbstractSQLBuilder} provides an implementation 
+ * of {@link CreateTablePolicy}.</p>
+ * 
+ * <p>The operations on this template are not synchronized, please employ your own mechanisms 
+ * for thread safety.</p> 
  * 
  * @version 1.1.0
  * <br><br>
@@ -63,7 +66,7 @@ public class CreateTableTemplate extends AbstractSQLBuilder implements CreateTab
 	 * {@inheritDoc}
 	 */
 	@Override
-	public synchronized CreateTablePolicy createTable(String tableName) throws MalformedSQLException {
+	public CreateTablePolicy createTable(String tableName) throws MalformedSQLException {
 		
 		throwIfImmutable();
 		
@@ -85,7 +88,7 @@ public class CreateTableTemplate extends AbstractSQLBuilder implements CreateTab
 	 * {@inheritDoc}
 	 */
 	@Override
-	public synchronized CreateTablePolicy ifNotExists() throws MalformedSQLException {
+	public CreateTablePolicy ifNotExists() throws MalformedSQLException {
 		
 		throwIfImmutable();
 		
@@ -104,7 +107,7 @@ public class CreateTableTemplate extends AbstractSQLBuilder implements CreateTab
 	 * {@inheritDoc}
 	 */
 	@Override
-	public synchronized CreateTablePolicy addColumn(String columnName, TypeAffinity typeAffinity) throws MalformedSQLException {
+	public CreateTablePolicy addColumn(String columnName, TypeAffinity typeAffinity) throws MalformedSQLException {
 		
 		throwIfImmutable();
 		
@@ -141,7 +144,7 @@ public class CreateTableTemplate extends AbstractSQLBuilder implements CreateTab
 	 * {@inheritDoc}
 	 */
 	@Override
-	public synchronized CreateTablePolicy withConstraints(SQL... columnConstraints) throws MalformedSQLException {
+	public CreateTablePolicy withConstraints(SQL... columnConstraints) throws MalformedSQLException {
 		
 		throwIfImmutable();
 		
@@ -163,7 +166,7 @@ public class CreateTableTemplate extends AbstractSQLBuilder implements CreateTab
 	 * {@inheritDoc}
 	 */
 	@Override
-	public synchronized String build() throws SQLException {
+	public String build() throws SQLException {
 		
 		if(isCorrupted())
 			throw new MalformedSQLException("Invoke createTable() and add at least one column before building. ");
