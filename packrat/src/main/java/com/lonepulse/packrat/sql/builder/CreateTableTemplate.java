@@ -29,8 +29,11 @@ import android.text.TextUtils;
  * <p>This concrete implementation of {@link AbstractSQLBuilder} provides an implementation 
  * of {@link CreateTablePolicy}.</p>
  * 
- * <p>The operations on this template are not synchronized, please employ your own mechanisms 
- * for thread safety.</p> 
+ * <p><b>Note</b> that this template may either mutate its state or produce an entirely new 
+ * instance of {@link CreateTablePolicy} as a result of its operations.
+ * 
+ * <p>The mutable operations on this template are not synchronized, please employ your own 
+ * mechanisms for thread safety.</p>
  * 
  * @version 1.1.0
  * <br><br>
@@ -40,30 +43,91 @@ public class CreateTableTemplate extends AbstractSQLBuilder implements CreateTab
 
 
 	/**
-	 * <p>This flag indicates whether the SQL statement composition has begun.
-	 */
-	private AtomicBoolean tableInitialized;
-	
-	/**
-	 * <p>This flag indicates whether the first column defition has been added 
+	 * <p>This flag indicates whether the first column definition has been added 
 	 * to the SQL statement composition.
 	 */
 	private AtomicBoolean firstColumnAdded;
 	
+	/**
+	 * <p>This flag indicates whether any table constraints have been added.
+	 */
+	private AtomicBoolean firstTableConstraintAdded;
+	
+	
+	/**
+	 * <p>Creates a new instance of {@link CreateTablePolicy} by instantiating a 
+	 * {@link CreateTableTemplate} with it's <b>nascent</b> state. 
+	 *
+	 * @return a new instance of {@link CreateTableTemplate}.
+	 * 
+	 * @since 1.1.0
+	 */
+	public static final CreateTablePolicy newInstance() {
+		
+		return new CreateTableTemplate() {
+
+			String errorContext = "Invoke createTable() to provide the table definition. ";
+			
+			@Override
+			public CreateTablePolicy ifNotExists() throws MalformedSQLException {
+				throw new MalformedSQLException(errorContext);
+			}
+
+			@Override
+			public CreateTablePolicy addColumn(String columnName, TypeAffinity typeAffinity) throws MalformedSQLException {
+				throw new MalformedSQLException(errorContext);
+			}
+
+			@Override
+			public CreateTablePolicy withColumnConstraints(SQL... columnConstraints) throws MalformedSQLException {
+				throw new MalformedSQLException(errorContext);
+			}
+
+			@Override
+			public CreateTablePolicy withTableConstraints(SQL... tableConstraints) throws MalformedSQLException {
+				throw new MalformedSQLException(errorContext);
+			}
+			
+			@Override
+			public String build() throws SQLException {
+				throw new MalformedSQLException(errorContext);
+			}
+		};
+	}
 	
 	/**
 	 * <p>Creates a new {@link CreateTableTemplate} by initializing the switches.
 	 *
 	 * @since 1.1.0
 	 */
-	public CreateTableTemplate() {
+	private CreateTableTemplate() {
 	
-		tableInitialized = new AtomicBoolean(false);
 		firstColumnAdded = new AtomicBoolean(false);
+		firstTableConstraintAdded = new AtomicBoolean(false);
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 * <p>Creates a new {@link CreateTableTemplate} by mirroring the state of the 
+	 * given {@link CreateTableTemplate}.
+	 * 
+	 * @param createTableTemplate
+	 * 			the instance of {@link CreateTableTemplate} whose state is to be 
+	 * 			mirrored in this instance
+	 *
+	 * @since 1.1.0
+	 */
+	private CreateTableTemplate(CreateTableTemplate createTableTemplate) {
+		
+		super(createTableTemplate);
+		
+		firstColumnAdded = new AtomicBoolean(createTableTemplate.firstColumnAdded.get());
+		firstTableConstraintAdded = new AtomicBoolean(createTableTemplate.firstTableConstraintAdded.get());
+	}
+	
+	/**
+	 * <p>Creates a new instance of {@link CreateTablePolicy} with its <b>post table defined</b> state.</p>
+	 * 
+	 * @see CreateTablePolicy#createTable(String)
 	 */
 	@Override
 	public CreateTablePolicy createTable(String tableName) throws MalformedSQLException {
@@ -73,38 +137,56 @@ public class CreateTableTemplate extends AbstractSQLBuilder implements CreateTab
 		if(TextUtils.isEmpty(tableName))
 			throw new SQLException("A table name is required to create a table definition.");
 		
-		if(tableInitialized.get())
-			throw new MalformedSQLException("Cannot invoke createTable() twice on the same template. ");
-		
-		if(firstColumnAdded.get())
-			throw new MalformedSQLException("Invoke createTable() before adding any columns. ");
-		
 		sql().append("CREATE TABLE ").append(tableName);
-		tableInitialized.set(true);
-		return this;
+		
+		try {
+		
+			return new CreateTableTemplate(this) {
+	
+				@Override
+				public CreateTablePolicy createTable(String tableName) throws MalformedSQLException {
+					throw new MalformedSQLException("Cannot invoke createTable() twice on the same template. ");
+				}
+			};
+		}
+		finally { setImmutable(); }
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * <p>Creates a new instance of {@link CreateTablePolicy} with its <b>pre columns defined</b> state.</p>
+	 * 
+	 * @see CreateTablePolicy#ifNotExists()
 	 */
 	@Override
 	public CreateTablePolicy ifNotExists() throws MalformedSQLException {
 		
 		throwIfImmutable();
 		
-		if(!tableInitialized.get())
-			throw new MalformedSQLException("Invoke createTable() before invoking ifNotExists(). ");
-		
-		if(firstColumnAdded.get())
-			throw new MalformedSQLException("Invoke ifNotExists() before adding any columns. ");
-		
 		sql().append("IF NOT EXISTS ");
 		
-		return null;
+		try {
+			
+			return new CreateTableTemplate(this) {
+				
+				@Override
+				public CreateTablePolicy createTable(String tableName) throws MalformedSQLException {
+					throw new MalformedSQLException("Cannot invoke createTable() twice on the same template. ");
+				}
+	
+				@Override
+				public CreateTablePolicy ifNotExists() throws MalformedSQLException {
+					throw new MalformedSQLException("ifNotExists() can only be invoked once, immediately after createTable(). ");
+				}
+			};
+		}
+		finally { setImmutable(); }
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * <p>Creates a new instance of {@link CreateTablePolicy} with its <b>column defined</b> state 
+	 * if this is first column definition; else the same instance is returned.</p>
+	 *  
+	 * @see CreateTablePolicy#addColumn(String, TypeAffinity)
 	 */
 	@Override
 	public CreateTablePolicy addColumn(String columnName, TypeAffinity typeAffinity) throws MalformedSQLException {
@@ -117,9 +199,6 @@ public class CreateTableTemplate extends AbstractSQLBuilder implements CreateTab
 		if(typeAffinity == null)
 			throw new SQLException("A column definition should be given a type affinity.");
 		
-		if(!tableInitialized.get())
-			throw new MalformedSQLException("Invoke createTable() before adding columns. ");
-		
 		if(!firstColumnAdded.get()) {
 			
 			sql().append(" ( ");
@@ -129,22 +208,43 @@ public class CreateTableTemplate extends AbstractSQLBuilder implements CreateTab
 			sql().append(", ");
 		}
 			
-		sql().append(columnName).append(" ").append(typeAffinity);
-		
 		if(!firstColumnAdded.get())  {
 			
 			firstColumnAdded.set(true);
+			
+			sql().append(columnName).append(" ").append(typeAffinity);
 			setCorrupted(false);
+			
+			try {
+				
+				return new CreateTableTemplate(this) {
+					
+					@Override
+					public CreateTablePolicy createTable(String tableName) throws MalformedSQLException {
+						throw new MalformedSQLException("Cannot invoke createTable() twice on the same template. ");
+					}
+	
+					@Override
+					public CreateTablePolicy ifNotExists() throws MalformedSQLException {
+						throw new MalformedSQLException("ifNotExists() can only be invoked once, immediately after createTable(). ");
+					}
+				};
+			}
+			finally { setImmutable(); }
 		}
-		
-		return this;
+		else {
+			
+			return this;
+		}
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 * <p>Returns an instance of {@link CreateTablePolicy} in its <b>column defined</b> state.</p>
+	 * 
+	 * @see CreateTablePolicy#withColumnConstraints(SQL...)
 	 */
 	@Override
-	public CreateTablePolicy withConstraints(SQL... columnConstraints) throws MalformedSQLException {
+	public CreateTablePolicy withColumnConstraints(SQL... columnConstraints) throws MalformedSQLException {
 		
 		throwIfImmutable();
 		
@@ -161,19 +261,78 @@ public class CreateTableTemplate extends AbstractSQLBuilder implements CreateTab
 		
 		return this;
 	}
+	
+	/**
+	 * <p>Creates a new instance of {@link CreateTablePolicy} with its <b>post columns defined</b> state 
+	 * if this is the first table constraint being added; else the same instance is returned.</p>
+	 *  
+	 * @see CreateTablePolicy#addColumn(String, TypeAffinity)
+	 */
+	@Override
+	public CreateTablePolicy withTableConstraints(SQL... tableConstraints) throws MalformedSQLException {
+		
+		throwIfImmutable();
+		
+		if(!firstColumnAdded.get())
+			throw new MalformedSQLException("Define a few columns using addColumn() before creating any table constraints.");
+		
+		if(tableConstraints != null) {
+			
+			for (SQL constraint : tableConstraints) {
+				
+				sql().append(", ").append(constraint);
+			}
+		}
+		
+		if(!firstTableConstraintAdded.get()) {
+			
+			firstTableConstraintAdded.set(true);
+			
+			try {
+			
+				return new CreateTableTemplate(this) {
+					
+					@Override
+					public CreateTablePolicy createTable(String tableName) throws MalformedSQLException {
+						throw new MalformedSQLException("Cannot invoke createTable() twice on the same template. ");
+					}
+					
+					@Override
+					public CreateTablePolicy ifNotExists() throws MalformedSQLException {
+						throw new MalformedSQLException("ifNotExists() can only be invoked once, immediately after createTable(). ");
+					}
+					
+					@Override
+					public CreateTablePolicy addColumn(String columnName, TypeAffinity typeAffinity) throws MalformedSQLException {
+						throw new MalformedSQLException("You cannot define any more columns after adding table constraints. ");
+					}
+					
+					@Override
+					public CreateTablePolicy withColumnConstraints(SQL... columnConstraints) throws MalformedSQLException {
+						throw new MalformedSQLException("You cannot apply any column constraints after adding table constraints. ");
+					}
+				};
+			}
+			finally { setImmutable(); }
+		}
+		else {
+			
+			return this;
+		}
+	}
 
 	/**
-	 * {@inheritDoc}
+	 * <p>See {@link CreateTablePolicy#build()}.
 	 */
 	@Override
 	public String build() throws SQLException {
 		
+		throwIfImmutable();
+		
 		if(isCorrupted())
 			throw new MalformedSQLException("Invoke createTable() and add at least one column before building. ");
 		
-		throwIfImmutable();
 		setImmutable();
-		
 		return sql().append(" );").toString();
 	}
 	
@@ -187,7 +346,13 @@ public class CreateTableTemplate extends AbstractSQLBuilder implements CreateTab
 	 */
 	private void throwIfImmutable() throws SQLException {
 		
-		if(isImmutable())
-			throw new SQLException("This template is now immutable. Use getSQLStatement() to edit the SQL manually.");
+		if(isImmutable()) {
+			
+			StringBuilder errorContext = new StringBuilder("This template is now immutable due to an ")
+			.append("operation which resulted in a stale state. Use the template generated by the ")
+			.append("intermediate operation or invoke getSQLStatement() to edit the SQL manually.");
+			
+			throw new SQLException(errorContext.toString());
+		}
 	}
 }

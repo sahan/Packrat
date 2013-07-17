@@ -49,7 +49,7 @@ abstract class AbstractSQLBuilder implements SQLBuilder {
 	 * <p>The {@link StringBuilder} which contains the SQL string that is 
 	 * being composed.
 	 */
-	private StringBuilder builder;
+	private StringBuilder sql;
 	
 	
 	/**
@@ -62,7 +62,24 @@ abstract class AbstractSQLBuilder implements SQLBuilder {
 	
 		corrupted = new AtomicBoolean(true);
 		immutable = new AtomicBoolean(false);
-		builder = new StringBuilder();
+		sql = new StringBuilder();
+	}
+	
+	/**
+	 * <p>Creates a new instance of {@link AbstractSQLBuilder} by mirroring the 
+	 * state from the given instance of {@link AbstractSQLBuilder}.
+	 * 
+	 * @param abstractSQLBuilder
+	 * 			the instance of {@link AbstractSQLBuilder} whose state is to be 
+	 * 			mirrored in this instance
+	 *
+	 * @since 1.1.0
+	 */
+	public AbstractSQLBuilder(AbstractSQLBuilder abstractSQLBuilder) {
+		
+		corrupted = new AtomicBoolean(abstractSQLBuilder.corrupted.get());
+		immutable = new AtomicBoolean(abstractSQLBuilder.immutable.get());
+		sql = new StringBuilder(abstractSQLBuilder.sql.toString());
 	}
 	
 	/**
@@ -76,11 +93,11 @@ abstract class AbstractSQLBuilder implements SQLBuilder {
 	 */
 	protected synchronized StringBuilder sql() {
 		
-		return builder;
+		return sql;
 	}
 	
 	/**
-	 * <p>Manages the internal state of the builder by changing 
+	 * <p>Manages the internal state of the sql by changing 
 	 * the corruption switch. 
 	 *
 	 * @param isCorrupt
@@ -142,6 +159,6 @@ abstract class AbstractSQLBuilder implements SQLBuilder {
 	@Override
 	public String getSQLStatement() {
 		
-		return builder.toString();
+		return sql.toString();
 	}
 }

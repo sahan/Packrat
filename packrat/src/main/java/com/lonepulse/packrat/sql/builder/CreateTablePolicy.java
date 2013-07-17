@@ -96,5 +96,23 @@ public interface CreateTablePolicy extends SQLBuilder {
 	 * 
 	 * @since 1.1.0
 	 */
-	CreateTablePolicy withConstraints(SQL... columnConstraints) throws MalformedSQLException;
+	CreateTablePolicy withColumnConstraints(SQL... columnConstraints) throws MalformedSQLException;
+	
+	/**
+	 * <p>Adds table constraints using {@link TableConstraint} to a table whose columns have already 
+	 * been defined. For example to define a <b>composite primary key</b> use 
+	 * {@code TableConstraint.PRIMARY_KEY.onColumns("column1", "column2")}. 
+	 *
+	 * @param tableConstraints
+	 * 			the constraints to be applied to the column to be created; these are {@link SQL} 
+	 * 			segments usually created using {@link TableConstraint}  
+	 * 
+	 * @return the current state of the {@link CreateTablePolicy}
+	 * 
+	 * @throws MalformedSQLException
+	 * 			if this operation has resulted in a corrupt SQL statement
+	 * 
+	 * @since 1.1.0
+	 */
+	CreateTablePolicy withTableConstraints(SQL... tableConstraints) throws MalformedSQLException;
 }
