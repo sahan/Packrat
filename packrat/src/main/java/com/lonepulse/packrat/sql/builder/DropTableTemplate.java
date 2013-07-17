@@ -29,7 +29,7 @@ import android.text.TextUtils;
  * <p>This concrete implementation of {@link AbstractSQLBuilder} provides an implementation 
  * of {@link CreateTablePolicy}.</p>
  * 
- * <p>The operations on this template are not, please employ your own mechanisms 
+ * <p>The operations on this template are not synchronized, please employ your own mechanisms 
  * for thread safety.</p>
  * 
  * @version 1.1.0
@@ -69,6 +69,7 @@ public class DropTableTemplate extends AbstractSQLBuilder implements DropTablePo
 		if(TextUtils.isEmpty(tableName))
 			throw new SQLException("A table name is required to create a table definition.");
 		
+		tableInitialized.set(true);
 		sql().append("DROP TABLE ").append(tableName);
 		
 		setCorrupted(false);
@@ -81,12 +82,12 @@ public class DropTableTemplate extends AbstractSQLBuilder implements DropTablePo
 	@Override
 	public String build() throws SQLException {
 		
+		throwIfImmutable();
+		
 		if(isCorrupted())
 			throw new MalformedSQLException("Invoke dropTable() before building. ");
 		
-		throwIfImmutable();
 		setImmutable();
-		
 		return sql().append(";").toString();
 	}
 	
