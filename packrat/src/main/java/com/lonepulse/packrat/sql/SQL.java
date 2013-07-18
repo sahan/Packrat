@@ -1,4 +1,4 @@
-package com.lonepulse.packrat.sql.builder;
+package com.lonepulse.packrat.sql;
 
 /*
  * #%L
@@ -22,28 +22,21 @@ package com.lonepulse.packrat.sql.builder;
 
 
 /**
- * <p>A fluent facade which specifies the services offered for building SQL 
- * statements that <b>drop tables</b> using rudimentary string manipulation. 
+ * <p>This contract identifies a statement (or segment) of <b>Structured Query Language</b>.
  * 
  * @version 1.1.0
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public interface DropTablePolicy extends SQLBuilder {
+public interface SQL {
 
 	/**
-	 * <p>Initializes the SQL build by specifying the name of the table 
-	 * to be dropped. 
+	 * <p>Retrieves the SQL segment which identifies this constraint along with 
+	 * any arguments which the constraint might act upon.
 	 *
-	 * @param tableName
-	 * 			the name of the table to be dropped
-	 * 
-	 * @return the current state of the {@link DropTablePolicy}
-	 * 
-	 * @throws MalformedSQLException
-	 * 			if this operation has resulted in a corrupt SQL statement
+	 * @return the SQL statement which represents this constraint
 	 * 
 	 * @since 1.1.0
 	 */
-	DropTablePolicy dropTable(String tableName) throws MalformedSQLException;
+	String getSQLStatement();
 }

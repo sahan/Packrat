@@ -1,4 +1,4 @@
-package com.lonepulse.packrat.sql.builder;
+package com.lonepulse.packrat.sql;
 
 /*
  * #%L
@@ -21,51 +21,53 @@ package com.lonepulse.packrat.sql.builder;
  */
 
 
+import com.lonepulse.packrat.PackratRuntimeException;
+
 /**
- * <p>This exception is thrown due to unrecoverable errors in <b>building</b> 
- * SQL statements using rudimentary {@link String} manipulation.
+ * <p>This exception is thrown for unrecoverable errors in generating SQL 
+ * statements by reading the metadata of models.
  * 
  * @version 1.1.0
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class MalformedSQLException extends SQLException {
+public class SQLException extends PackratRuntimeException {
 
 
 	private static final long serialVersionUID = 563212701694328603L;
-
 	
-	/**
-	 * <p>See {@link SQLException#SQLBuilderException()}.
-	 *
-	 * @since 1.1.0
-	 */
-	public MalformedSQLException() {}
 
 	/**
-	 * <p>See {@link SQLException#SQLBuilderException(String)}.
+	 * <p>See {@link PackratRuntimeException#PackratRuntimeException()}.
 	 *
 	 * @since 1.1.0
 	 */
-	public MalformedSQLException(String detailMessage) {
+	public SQLException() {}
+
+	/**
+	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(String)}.
+	 *
+	 * @since 1.1.0
+	 */
+	public SQLException(String detailMessage) {
 		super(detailMessage);
 	}
 
 	/**
-	 * <p>See {@link SQLException#SQLBuilderException(Throwable)}.
+	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(Throwable)}.
 	 *
 	 * @since 1.1.0
 	 */
-	public MalformedSQLException(Throwable throwable) {
+	public SQLException(Throwable throwable) {
 		super(throwable);
 	}
 
 	/**
-	 * <p>See {@link SQLException#SQLBuilderException(String, Throwable)}.
+	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(String, Throwable)}.
 	 *
 	 * @since 1.1.0
 	 */
-	public MalformedSQLException(String detailMessage, Throwable throwable) {
+	public SQLException(String detailMessage, Throwable throwable) {
 		super(detailMessage, throwable);
 	}
 }

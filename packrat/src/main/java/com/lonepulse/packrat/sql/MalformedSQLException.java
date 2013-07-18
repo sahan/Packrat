@@ -1,4 +1,4 @@
-package com.lonepulse.packrat.sql.builder;
+package com.lonepulse.packrat.sql;
 
 /*
  * #%L
@@ -21,53 +21,51 @@ package com.lonepulse.packrat.sql.builder;
  */
 
 
-import com.lonepulse.packrat.PackratRuntimeException;
-
 /**
- * <p>This exception is thrown for unrecoverable errors in generating SQL 
- * statements by reading the metadata of models.
+ * <p>This exception is thrown due to unrecoverable errors in <b>building</b> 
+ * SQL statements using rudimentary {@link String} manipulation.
  * 
  * @version 1.1.0
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class SQLException extends PackratRuntimeException {
+public class MalformedSQLException extends SQLException {
 
 
 	private static final long serialVersionUID = 563212701694328603L;
+
 	
-
 	/**
-	 * <p>See {@link PackratRuntimeException#PackratRuntimeException()}.
+	 * <p>See {@link SQLException#SQLBuilderException()}.
 	 *
 	 * @since 1.1.0
 	 */
-	public SQLException() {}
+	public MalformedSQLException() {}
 
 	/**
-	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(String)}.
+	 * <p>See {@link SQLException#SQLBuilderException(String)}.
 	 *
 	 * @since 1.1.0
 	 */
-	public SQLException(String detailMessage) {
+	public MalformedSQLException(String detailMessage) {
 		super(detailMessage);
 	}
 
 	/**
-	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(Throwable)}.
+	 * <p>See {@link SQLException#SQLBuilderException(Throwable)}.
 	 *
 	 * @since 1.1.0
 	 */
-	public SQLException(Throwable throwable) {
+	public MalformedSQLException(Throwable throwable) {
 		super(throwable);
 	}
 
 	/**
-	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(String, Throwable)}.
+	 * <p>See {@link SQLException#SQLBuilderException(String, Throwable)}.
 	 *
 	 * @since 1.1.0
 	 */
-	public SQLException(String detailMessage, Throwable throwable) {
+	public MalformedSQLException(String detailMessage, Throwable throwable) {
 		super(detailMessage, throwable);
 	}
 }

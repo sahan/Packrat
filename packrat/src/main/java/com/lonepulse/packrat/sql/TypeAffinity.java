@@ -1,4 +1,4 @@
-package com.lonepulse.packrat.sql.builder;
+package com.lonepulse.packrat.sql;
 
 import java.lang.reflect.Field;
 

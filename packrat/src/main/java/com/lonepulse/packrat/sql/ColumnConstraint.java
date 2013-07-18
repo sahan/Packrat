@@ -1,5 +1,6 @@
-package com.lonepulse.packrat.sql.builder;
+package com.lonepulse.packrat.sql;
 
+import com.lonepulse.packrat.util.SQLUtils;
 
 /*
  * #%L
@@ -23,30 +24,44 @@ package com.lonepulse.packrat.sql.builder;
 
 
 /**
- * <p>Represents a constraint which can be applied on a table, targeting one 
- * or more columns. 
+ * <p>Represents a constraint which can be applied on a column. 
  * 
  * @version 1.1.0
  * <br><br>
  * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public enum TableConstraint implements SQL {
+public enum ColumnConstraint implements SQL {
 
 	/**
-	 * <p>Identifies a column or a set of columns which provide an identity to 
-	 * the whole table. Two or more columns signify a composite primary key.
+	 * <p>Identifies a column which provides an identity to the tuple.
 	 * 
 	 * @since 1.1.0
 	 */
 	PRIMARY_KEY("PRIMARY KEY"),
 	
 	/**
-	 * <p>Identifies a column or a set of columns which contain a unique value 
-	 * or a set of values within the whole table.
+	 * <p>Identifies a column which contains a unique value within the 
+	 * whole table.
 	 * 
 	 * @since 1.1.0
 	 */
-	UNIQUE("UNIQUE");
+	UNIQUE("UNIQUE"),
+	
+	/**
+	 * <p>Identifies a column which cannot contain null values.
+	 * 
+	 * @since 1.1.0
+	 */
+	NOT_NULL("NOT NULL"),
+	
+	/**
+	 * <p>Identifies a column which could contain a default value if 
+	 * no value is provided during population. Provide the default 
+	 * value using {@link #withArgs(String...)}.
+	 *  
+	 * @since 1.1.0
+	 */
+	DEFAULT("DEFAULT");
 	
 	
 	
@@ -57,7 +72,7 @@ public enum TableConstraint implements SQL {
 	
 	
 	/**
-	 * <p>Instantiates a new {@link TableConstraint} and initializes 
+	 * <p>Instantiates a new {@link ColumnConstraint} and initializes 
 	 * its {@link #sql} representation.
 	 * 
 	 * @param constraint
@@ -65,7 +80,7 @@ public enum TableConstraint implements SQL {
 	 *
 	 * @since 1.1.0
 	 */
-	private TableConstraint(String constraint) {
+	private ColumnConstraint(String constraint) {
 		
 		this.sql = constraint;
 	}
@@ -84,40 +99,36 @@ public enum TableConstraint implements SQL {
 	}
 	
 	/**
-	 * <p>Applies a {@link TableConstraint} on one or more columns and produces the 
-	 * resulting {@link SQL} segment. 
+	 * <p>Allows the use of a {@link ColumnConstraint} with arguments. For 
+	 * example {@code DEFAULT 0}. 
 	 *
 	 * @param args
-	 * 			the columns on which the {@link TableConstraint} is applied
+	 * 			the arguments to be applied to the {@link ColumnConstraint}
 	 * 
-	 * @return the {@link SQL} with the columns to which the constraint is applied
+	 * @return the {@link SQL} with the arguments applied
 	 * 
 	 * @since 1.1.0
 	 */
-	public SQL onColumns(String... args) {
+	public SQL withArgs(String... args) {
 		
 		StringBuilder sqlBuilder = new StringBuilder(sql);
 		
 		if(args != null && args.length > 0) {
 		
-			sqlBuilder.append("(").append(args[0]);
-			
-			for (int i = 1; i < args.length; i++) {
+			for (int i = 0; i < args.length; i++) {
 				
-				sqlBuilder.append(",").append(args[i]);
+				sqlBuilder.append(" ").append(SQLUtils.quoteIfTextual(args[i]));
 			}
-			
-			sqlBuilder.append(")");
 		}
 		
-		final String sqlWithColumns = sqlBuilder.toString();
+		final String sqlWithArgs = sqlBuilder.toString();
 		
 		return new SQL() {
 			
 			@Override
 			public String getSQLStatement() {
 				
-				return sqlWithColumns;
+				return sqlWithArgs;
 			}
 		};
 	}
