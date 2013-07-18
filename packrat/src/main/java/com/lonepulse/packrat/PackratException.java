@@ -26,7 +26,7 @@ package com.lonepulse.packrat;
  * 
  * @version 1.1.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 public class PackratException extends Exception {
 

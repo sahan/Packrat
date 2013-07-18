@@ -33,7 +33,7 @@ import android.content.Context;
  * 
  * @version 1.1.0
  * <br><br>
- * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+ * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
 public final class PropertyReader {
 
@@ -43,7 +43,7 @@ public final class PropertyReader {
 	 * 
 	 * @version 1.1.0
 	 * <br><br>
-	 * @author <a href="mailto:lahiru@lonepulse.com">Lahiru Sahan Jayasinghe</a>
+	 * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
 	 */
 	public static enum PROPERTY {
 		
