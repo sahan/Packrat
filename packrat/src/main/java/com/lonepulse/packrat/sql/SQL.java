@@ -28,7 +28,7 @@ package com.lonepulse.packrat.sql;
  * <br><br>
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public interface SQL {
+interface SQL {
 
 	/**
 	 * <p>Retrieves the SQL segment which identifies this constraint along with 

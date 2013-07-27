@@ -71,7 +71,7 @@ public class ParamUtils {
 	
 	/**
 	 * <p>Throws an {@link IllegalArgumentException} if the provided <i>instance</i> 
-	 * argument is {@code null}.</p>
+	 * argument is {@code null} or empty.</p>
 	 * 
 	 * <p><b>Note that multidimensional arrays are not covered.</b></p>
 	 * 
@@ -90,25 +90,15 @@ public class ParamUtils {
 		
 		throwIfNull(manyOfSomething);
 		
-		if(manyOfSomething instanceof String) {
+		if(manyOfSomething instanceof CharSequence) {
 			
-			if(((String)manyOfSomething).isEmpty())
-				throw new IllegalArgumentException("The supplied String parameter is empty. ");
+			if(((CharSequence)manyOfSomething).toString().isEmpty())
+				throw new IllegalArgumentException("The supplied CharSequence parameter is empty. ");
 		}
 		else if(manyOfSomething instanceof Collection<?>) {
 			
 			if(((Collection<?>)manyOfSomething).isEmpty())
 				throw new IllegalArgumentException("The supplied Collection parameter is empty. ");
-		}
-		else if(manyOfSomething instanceof CharSequence) {
-			
-			if(((CharSequence)manyOfSomething).toString().isEmpty())
-				throw new IllegalArgumentException("The supplied CharSequence parameter is empty. ");
-		}
-		else if(manyOfSomething instanceof StringBuilder) {
-			
-			if(((StringBuilder)manyOfSomething).toString().isEmpty())
-				throw new IllegalArgumentException("The supplied StringBuilder parameter is empty. ");
 		}
 		else if(manyOfSomething instanceof Map<?, ?>) {
 			

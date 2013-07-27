@@ -68,7 +68,7 @@ public enum ColumnConstraint implements SQL {
 	/**
 	 * <p>The SQL representation of the constraint.
 	 */
-	private String sql;
+	private SQLStatement sqlStatement;
 	
 	
 	/**
@@ -80,9 +80,16 @@ public enum ColumnConstraint implements SQL {
 	 *
 	 * @since 1.1.0
 	 */
-	private ColumnConstraint(String constraint) {
+	private ColumnConstraint(final String constraint) {
 		
-		this.sql = constraint;
+		this.sqlStatement = new SQLStatement() {
+			
+			@Override
+			public String getSQLStatement() {
+				
+				return constraint;
+			}
+		};
 	}
 
 	/**
@@ -95,7 +102,7 @@ public enum ColumnConstraint implements SQL {
 	@Override
 	public String getSQLStatement() {
 		
-		return sql;
+		return sqlStatement.getSQLStatement();
 	}
 	
 	/**
@@ -111,7 +118,7 @@ public enum ColumnConstraint implements SQL {
 	 */
 	public SQL withArgs(String... args) {
 		
-		StringBuilder sqlBuilder = new StringBuilder(sql);
+		StringBuilder sqlBuilder = new StringBuilder(sqlStatement.getSQLStatement());
 		
 		if(args != null && args.length > 0) {
 		
@@ -123,7 +130,7 @@ public enum ColumnConstraint implements SQL {
 		
 		final String sqlWithArgs = sqlBuilder.toString();
 		
-		return new SQL() {
+		return new SQLStatement() {
 			
 			@Override
 			public String getSQLStatement() {
@@ -134,12 +141,12 @@ public enum ColumnConstraint implements SQL {
 	}
 
 	/**
-	 * <p>Delegates to {@link #getSQLStatement()}. To use this column constraint with 
+	 * <p>Delegates to {@link #sqlStatement#toString()}. To use this column constraint with 
 	 * some arguments use {@code getSql().withArgs(java.lang.String...)}.
 	 */
 	@Override
 	public String toString() {
 
-		return getSQLStatement();
+		return sqlStatement.toString();
 	}
 }
