@@ -1,8 +1,5 @@
 package com.lonepulse.packrat.sql;
 
-import java.lang.reflect.Field;
-
-import com.lonepulse.packrat.util.Resolver;
 
 /*
  * #%L
@@ -111,49 +108,28 @@ public enum TypeAffinity {
 
 		return getSql();
 	}
-
-	/**
-	 * <p>A {@link Resolver} which determines the {@link TypeAffinity} which best matches 
-	 * a given {@link Field}'s type.
-	 * 
-	 * @since 1.1.0
-	 */
-	public static final Resolver<Class<?>, TypeAffinity> RESOLVER = new Resolver<Class<?>, TypeAffinity>() {
-		
-		/**
-		 * <p>Takes the {@link Class} of a {@link Field} and resolves the most 
-		 * suitable {@link TypeAffinity} which represents it in a table.
-		 * 
-		 * @param type
-		 * 			the {@link Class} of the {@link Field} on a model
-		 * 
-		 * @return the {@link TypeAffinity} which best matches this {@link Field}
-		 * 
-		 * @since 1.1.0
-		 */
-		@Override
-		public TypeAffinity resolve(Class<?> type) {
 	
-			if(byte.class.isAssignableFrom(type) || short.class.isAssignableFrom(type) ||
-			   int.class.isAssignableFrom(type) || long.class.isAssignableFrom(type) ||
-			   Byte.class.isAssignableFrom(type) || Short.class.isAssignableFrom(type) ||
-			   Integer.class.isAssignableFrom(type) || Long.class.isAssignableFrom(type)) {
-				
-				return INTEGER;
-			}
-			else if(float.class.isAssignableFrom(type) || double.class.isAssignableFrom(type) ||
-					Float.class.isAssignableFrom(type) || Double.class.isAssignableFrom(type)) {
-				
-				return REAL;
-			}
-			else if(Number.class.isAssignableFrom(type)) {
-				
-				return NUMERIC;
-			}
-			else {
-				
-				return TEXT;
-			}
+	public static TypeAffinity resolve(Class<?> type) {
+		
+		if(byte.class.isAssignableFrom(type) || short.class.isAssignableFrom(type) ||
+		   int.class.isAssignableFrom(type) || long.class.isAssignableFrom(type) ||
+		   Byte.class.isAssignableFrom(type) || Short.class.isAssignableFrom(type) ||
+		   Integer.class.isAssignableFrom(type) || Long.class.isAssignableFrom(type)) {
+			
+			return INTEGER;
 		}
-	};
+		else if(float.class.isAssignableFrom(type) || double.class.isAssignableFrom(type) ||
+				Float.class.isAssignableFrom(type) || Double.class.isAssignableFrom(type)) {
+			
+			return REAL;
+		}
+		else if(Number.class.isAssignableFrom(type)) {
+			
+			return NUMERIC;
+		}
+		else {
+			
+			return TEXT;
+		}
+	}
 }
