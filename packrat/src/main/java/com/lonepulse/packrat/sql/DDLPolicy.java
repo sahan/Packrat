@@ -1,5 +1,7 @@
 package com.lonepulse.packrat.sql;
 
+import com.lonepulse.packrat.Entity;
+
 /*
  * #%L
  * Packrat
@@ -51,7 +53,7 @@ public interface DDLPolicy {
 	 * 
 	 * @since 1.1.0
 	 */
-	<Model extends Object> StringBuilder create(Class<Model> modelType) throws DDLException;
+	<Model extends Entity<Model>> StringBuilder create(Class<Model> modelType) throws DDLException;
 	
 	/**
 	 * <p>Generate the <b>DROP</b> statements for a relation identified 
@@ -69,5 +71,5 @@ public interface DDLPolicy {
 	 * 
 	 * @since 1.1.0
 	 */
-	<Model extends Object> StringBuilder drop(Class<Model> modelType) throws DDLException;
+	<Model extends Entity<Model>> StringBuilder drop(Class<Model> modelType) throws DDLException;
 }

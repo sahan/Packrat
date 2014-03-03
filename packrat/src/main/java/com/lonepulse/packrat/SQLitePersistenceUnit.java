@@ -20,8 +20,6 @@ package com.lonepulse.packrat;
  * #L%
  */
 
-import java.util.Set;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
@@ -58,8 +56,8 @@ implements PersistenceUnit {
 	@Override
 	public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-		Set<Class<Object>> entitySet = entities();
-		
+		for (Class<?> clazz : entities()) {
+		}
 		//TODO read metadata and create schema
 	}
 
@@ -69,8 +67,8 @@ implements PersistenceUnit {
 	@Override
 	public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
 
-		Set<Class<Object>> entitySet = entities();
-		
+		for (Class<?> clazz : entities()) {
+		}
 		//TODO read metadata and upgrade schema
 	}
 }

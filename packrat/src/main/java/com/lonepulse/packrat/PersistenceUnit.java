@@ -40,5 +40,5 @@ public interface PersistenceUnit {
 	 *
 	 * @since 1.1.0
 	 */
-	public abstract <Model extends Object> Set<Class<Model>> entities();
+	<Model extends Entity<Model>> Set<Class<Model>> entities();
 }

@@ -1,5 +1,7 @@
 package com.lonepulse.packrat.sql;
 
+import com.lonepulse.packrat.Entity;
+
 /*
  * #%L
  * Packrat
@@ -35,7 +37,7 @@ public class DDLGenerator implements DDLPolicy {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public <Model> StringBuilder create(Class<Model> modelType) throws DDLException {
+	public <Model extends Entity<Model>> StringBuilder create(Class<Model> type) throws DDLException {
 		
 		return null;
 	}
@@ -44,7 +46,7 @@ public class DDLGenerator implements DDLPolicy {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public <Model> StringBuilder drop(Class<Model> modelType) throws DDLException {
+	public <Model extends Entity<Model>> StringBuilder drop(Class<Model> type) throws DDLException {
 		
 		return null;
 	}
