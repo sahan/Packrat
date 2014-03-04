@@ -21,6 +21,8 @@ package com.lonepulse.packrat.sql;
  */
 
 
+import java.util.Collection;
+
 import android.text.TextUtils;
 
 /**
@@ -80,11 +82,11 @@ public class CreateTableSQLBuilder extends AbstractSQLBuilder implements CreateT
 			return createTablePolicy = createTablePolicy.addColumn(columnName, typeAffinity); 
 		}
 
-		@Override public CreateTablePolicy withColumnConstraints(SQL... columnConstraints) throws MalformedSQLException { 
+		@Override public CreateTablePolicy withColumnConstraints(Collection<SQL> columnConstraints) throws MalformedSQLException { 
 			return createTablePolicy = createTablePolicy.withColumnConstraints(columnConstraints); 
 		}
 
-		@Override public CreateTablePolicy withTableConstraints(SQL... tableConstraints) throws MalformedSQLException { 
+		@Override public CreateTablePolicy withTableConstraints(Collection<SQL> tableConstraints) throws MalformedSQLException { 
 			return createTablePolicy = createTablePolicy.withTableConstraints(tableConstraints); 
 		}
 	}
@@ -120,11 +122,11 @@ public class CreateTableSQLBuilder extends AbstractSQLBuilder implements CreateT
 				throw new MalformedSQLException(errorContext);
 			}
 
-			@Override public CreateTablePolicy withColumnConstraints(SQL... columnConstraints) throws MalformedSQLException {
+			@Override public CreateTablePolicy withColumnConstraints(Collection<SQL> columnConstraints) throws MalformedSQLException {
 				throw new MalformedSQLException(errorContext);
 			}
 
-			@Override public CreateTablePolicy withTableConstraints(SQL... tableConstraints) throws MalformedSQLException {
+			@Override public CreateTablePolicy withTableConstraints(Collection<SQL> tableConstraints) throws MalformedSQLException {
 				throw new MalformedSQLException(errorContext);
 			}
 			
@@ -180,11 +182,11 @@ public class CreateTableSQLBuilder extends AbstractSQLBuilder implements CreateT
 				throw new MalformedSQLException("Cannot invoke createTable() twice on the same template. ");
 			}
 
-			@Override public CreateTablePolicy withColumnConstraints(SQL... columnConstraints) throws MalformedSQLException {
+			@Override public CreateTablePolicy withColumnConstraints(Collection<SQL> columnConstraints) throws MalformedSQLException {
 				throw new MalformedSQLException("Cannot add column constraints without creating a column. ");
 			}
 
-			@Override public CreateTablePolicy withTableConstraints(SQL... tableConstraints) throws MalformedSQLException {
+			@Override public CreateTablePolicy withTableConstraints(Collection<SQL> tableConstraints) throws MalformedSQLException {
 				throw new MalformedSQLException("Cannot add table constraints without creating a column. ");
 			}
 
@@ -216,11 +218,11 @@ public class CreateTableSQLBuilder extends AbstractSQLBuilder implements CreateT
 				throw new MalformedSQLException("ifNotExists() can only be invoked once, immediately after createTable(). ");
 			}
 
-			@Override public CreateTablePolicy withColumnConstraints(SQL... columnConstraints) throws MalformedSQLException {
+			@Override public CreateTablePolicy withColumnConstraints(Collection<SQL> columnConstraints) throws MalformedSQLException {
 				throw new MalformedSQLException("Cannot add column constraints without creating a column. ");
 			}
 
-			@Override public CreateTablePolicy withTableConstraints(SQL... tableConstraints) throws MalformedSQLException {
+			@Override public CreateTablePolicy withTableConstraints(Collection<SQL> tableConstraints) throws MalformedSQLException {
 				throw new MalformedSQLException("Cannot add table constraints without creating a column. ");
 			}
 
@@ -278,12 +280,12 @@ public class CreateTableSQLBuilder extends AbstractSQLBuilder implements CreateT
 	/**
 	 * <p>Returns an instance of {@link CreateTablePolicy} in its <b>column defined</b> state.</p>
 	 * 
-	 * @see CreateTablePolicy#withColumnConstraints(SQL...)
+	 * @see CreateTablePolicy#withColumnConstraints(Collection<SQL>)
 	 */
 	@Override
-	public CreateTablePolicy withColumnConstraints(SQL... columnConstraints) throws MalformedSQLException {
+	public CreateTablePolicy withColumnConstraints(Collection<SQL> columnConstraints) throws MalformedSQLException {
 		
-		if(columnConstraints == null || columnConstraints.length == 0) {
+		if(columnConstraints == null || columnConstraints.isEmpty()) {
 			
 			return this;
 		}
@@ -303,9 +305,9 @@ public class CreateTableSQLBuilder extends AbstractSQLBuilder implements CreateT
 	 * @see CreateTablePolicy#addColumn(String, TypeAffinity)
 	 */
 	@Override
-	public CreateTablePolicy withTableConstraints(SQL... tableConstraints) throws MalformedSQLException {
+	public CreateTablePolicy withTableConstraints(Collection<SQL> tableConstraints) throws MalformedSQLException {
 		
-		if(tableConstraints == null || tableConstraints.length == 0) {
+		if(tableConstraints == null || tableConstraints.isEmpty()) {
 			
 			return this;
 		}
@@ -332,15 +334,15 @@ public class CreateTableSQLBuilder extends AbstractSQLBuilder implements CreateT
 				throw new MalformedSQLException("You cannot define any more columns after adding table constraints. ");
 			}
 			
-			@Override public CreateTablePolicy withColumnConstraints(SQL... columnConstraints) throws MalformedSQLException {
+			@Override public CreateTablePolicy withColumnConstraints(Collection<SQL> columnConstraints) throws MalformedSQLException {
 				throwIfImmutable(); 
 				throw new MalformedSQLException("You cannot apply any column constraints after adding table constraints. ");
 			}
 
-			@Override public CreateTablePolicy withTableConstraints(SQL... tableConstraints) throws MalformedSQLException {
+			@Override public CreateTablePolicy withTableConstraints(Collection<SQL> tableConstraints) throws MalformedSQLException {
 				
 				throwIfImmutable();
-				if(tableConstraints == null || tableConstraints.length == 0) {
+				if(tableConstraints == null || tableConstraints.isEmpty()) {
 					
 					return this;
 				}

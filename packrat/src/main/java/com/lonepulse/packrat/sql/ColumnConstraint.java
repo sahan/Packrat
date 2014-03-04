@@ -40,6 +40,13 @@ public enum ColumnConstraint implements SQL {
 	PRIMARY_KEY("PRIMARY KEY"),
 	
 	/**
+	 * <p>Enforces a primary key column to be incremented automatically for each record.
+	 * 
+	 * @since 1.1.0
+	 */
+	AUTO_INCREMENT("AUTOINCREMENT"),
+	
+	/**
 	 * <p>Identifies a column which contains a unique value within the 
 	 * whole table.
 	 * 

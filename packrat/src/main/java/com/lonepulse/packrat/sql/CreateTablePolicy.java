@@ -1,5 +1,7 @@
 package com.lonepulse.packrat.sql;
 
+import java.util.Collection;
+
 /*
  * #%L
  * Packrat
@@ -96,7 +98,7 @@ public interface CreateTablePolicy extends SQLBuilder {
 	 * 
 	 * @since 1.1.0
 	 */
-	CreateTablePolicy withColumnConstraints(SQL... columnConstraints) throws MalformedSQLException;
+	CreateTablePolicy withColumnConstraints(Collection<SQL> columnConstraints) throws MalformedSQLException;
 	
 	/**
 	 * <p>Adds table constraints using {@link TableConstraint} to a table whose columns have already 
@@ -114,5 +116,5 @@ public interface CreateTablePolicy extends SQLBuilder {
 	 * 
 	 * @since 1.1.0
 	 */
-	CreateTablePolicy withTableConstraints(SQL... tableConstraints) throws MalformedSQLException;
+	CreateTablePolicy withTableConstraints(Collection<SQL> tableConstraints) throws MalformedSQLException;
 }

@@ -1,6 +1,19 @@
 package com.lonepulse.packrat.sql;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.lonepulse.packrat.Entity;
+import com.lonepulse.packrat.annotation.AutoIncrement;
+import com.lonepulse.packrat.annotation.Column;
+import com.lonepulse.packrat.annotation.Default;
+import com.lonepulse.packrat.annotation.Id;
+import com.lonepulse.packrat.annotation.NotNull;
+import com.lonepulse.packrat.annotation.Table;
+import com.lonepulse.packrat.annotation.Transient;
+import com.lonepulse.packrat.annotation.Unique;
+import com.lonepulse.packrat.util.Fields;
 
 /*
  * #%L
@@ -37,16 +50,86 @@ public class DDLGenerator implements DDLPolicy {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public <Model extends Entity<Model>> StringBuilder create(Class<Model> type) throws DDLException {
+	public <Model extends Entity<Model>> String create(Class<Model> type) throws DDLException {
+
+		String table = type.getSimpleName();
+		boolean createIfNotExists = true;
 		
-		return null;
+		if(type.isAnnotationPresent(Table.class)) {
+			
+			Table tableMetadata = type.getAnnotation(Table.class);
+			
+			String name = tableMetadata.name();
+			table = (name == null || "".equals(name))? table :name;
+			
+			createIfNotExists = tableMetadata.createIfNotExists();
+		}
+		
+		CreateTablePolicy template = CreateTableSQLBuilder.newInstance().createTable(table);
+		
+		if(createIfNotExists) {
+			
+			template.ifNotExists();
+		}
+		
+		for (Field field : Fields.in(type)) {
+			
+			if(!field.isAnnotationPresent(Transient.class)) {
+				
+				String column = field.getName();
+				
+				if(field.isAnnotationPresent(Column.class)) {
+					
+					Column columnMetadata = field.getAnnotation(Column.class);
+					
+					String name = columnMetadata.name();
+					column = (name == null || "".equals(name))? column :name;
+				}
+					
+				template.addColumn(column, TypeAffinity.resolve(field.getType()));
+				
+				List<SQL> columnConstraints = new ArrayList<SQL>();
+				
+				if(field.isAnnotationPresent(Id.class)) {
+					
+					columnConstraints.add(ColumnConstraint.PRIMARY_KEY);
+					
+					if(field.isAnnotationPresent(AutoIncrement.class)) {
+						
+						columnConstraints.add(ColumnConstraint.AUTO_INCREMENT);
+					}
+				}
+				
+				if(field.isAnnotationPresent(Unique.class)) {
+					
+					columnConstraints.add(ColumnConstraint.UNIQUE);
+				}
+				
+				if(field.isAnnotationPresent(NotNull.class)) {
+					
+					columnConstraints.add(ColumnConstraint.NOT_NULL);
+				}
+				else if(field.isAnnotationPresent(Default.class)) {
+					
+					columnConstraints.add(ColumnConstraint.DEFAULT
+						.withArgs(field.getAnnotation(Default.class).value()));
+				}
+				
+				if(!columnConstraints.isEmpty()) {
+				
+					template.withColumnConstraints(columnConstraints);
+				}
+			}
+		}
+			
+		return template.build();
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public <Model extends Entity<Model>> StringBuilder drop(Class<Model> type) throws DDLException {
+	public <Model extends Entity<Model>> String drop(Class<Model> type) throws DDLException {
 		
 		return null;
 	}

@@ -45,15 +45,14 @@ public interface DDLPolicy {
 	 * 			the {@link Class} of the model object whose <b>CREATE</b> 
 	 * 			SQL statement(s) are to be generated
 	 * 
-	 * @return a {@link StringBuilder} which contains a concatenation of 
-	 * 		   all the creation statements 
+	 * @return a String which contains a concatenation of all the creation statements 
 	 * 
 	 * @throws DDLException
 	 * 			if the SQL statement(s) failed to be generated
 	 * 
 	 * @since 1.1.0
 	 */
-	<Model extends Entity<Model>> StringBuilder create(Class<Model> modelType) throws DDLException;
+	<Model extends Entity<Model>> String create(Class<Model> modelType) throws DDLException;
 	
 	/**
 	 * <p>Generate the <b>DROP</b> statements for a relation identified 
@@ -63,13 +62,12 @@ public interface DDLPolicy {
 	 * 			the {@link Class} of the model object whose <b>DROP</b> 
 	 * 			SQL statement(s) are to be generated
 	 * 
-	 * @return a {@link StringBuilder} which contains a concatenation of 
-	 * 		   all the drop statements 
+	 * @return a String which contains a concatenation of all the drop statements 
 	 * 
 	 * @throws DDLException
 	 * 			if the SQL statement(s) failed to be generated
 	 * 
 	 * @since 1.1.0
 	 */
-	<Model extends Entity<Model>> StringBuilder drop(Class<Model> modelType) throws DDLException;
+	<Model extends Entity<Model>> String drop(Class<Model> modelType) throws DDLException;
 }
