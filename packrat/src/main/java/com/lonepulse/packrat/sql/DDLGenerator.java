@@ -52,18 +52,10 @@ public class DDLGenerator implements DDLPolicy {
 	@Override
 	public <Model extends Entity<Model>> String create(Class<Model> type) throws DDLException {
 
-		String table = type.getSimpleName();
-		boolean createIfNotExists = true;
+		String table = getTableName(type);
 		
-		if(type.isAnnotationPresent(Table.class)) {
-			
-			Table tableMetadata = type.getAnnotation(Table.class);
-			
-			String name = tableMetadata.name();
-			table = (name == null || "".equals(name))? table :name;
-			
-			createIfNotExists = tableMetadata.createIfNotExists();
-		}
+		boolean createIfNotExists = type.isAnnotationPresent(Table.class)? 
+			type.getAnnotation(Table.class).createIfNotExists() :true;
 		
 		CreateTablePolicy template = CreateTableSQLBuilder.newInstance().createTable(table);
 		
@@ -131,6 +123,22 @@ public class DDLGenerator implements DDLPolicy {
 	@Override
 	public <Model extends Entity<Model>> String drop(Class<Model> type) throws DDLException {
 		
-		return null;
+		return DropTableSQLBuilder.newInstance()
+				.dropTable(getTableName(type)).build();
+	}
+	
+	private <Model extends Entity<Model>> String getTableName(Class<Model> type) {
+		
+		String table = type.getSimpleName();
+		
+		if(type.isAnnotationPresent(Table.class)) {
+			
+			Table tableMetadata = type.getAnnotation(Table.class);
+			
+			String name = tableMetadata.name();
+			table = (name == null || "".equals(name))? table :name;
+		}
+		
+		return table;
 	}
 }
