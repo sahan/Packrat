@@ -25,8 +25,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.lonepulse.packrat.config.PropertyReader;
-import com.lonepulse.packrat.config.PropertyReader.PROPERTY;
+import com.lonepulse.packrat.config.MetaDataReader;
+import com.lonepulse.packrat.config.MetaDataReader.PROPERTY;
 
 /**
  * <p>This is a concrete implementation of {@link PersistenceUnit} which 
@@ -46,8 +46,8 @@ implements PersistenceUnit {
 	 */
 	public SQLitePersistenceUnit(Context context) {
 		
-		super(context, PropertyReader.read(context, PROPERTY.NAME), 
-			  null, Integer.parseInt(PropertyReader.read(context, PROPERTY.VERSION)));
+		super(context, MetaDataReader.read(context, PROPERTY.NAME), 
+			  null, Integer.parseInt(MetaDataReader.read(context, PROPERTY.VERSION)));
 	}
 	
 	/**

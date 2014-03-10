@@ -21,34 +21,37 @@ package com.lonepulse.packrat.config;
  */
 
 import com.lonepulse.packrat.PackratRuntimeException;
-import com.lonepulse.packrat.config.PropertyReader.PROPERTY;
+import com.lonepulse.packrat.config.MetaDataReader.PROPERTY;
 
 /**
- * <p>This {@link RuntimeException} is thrown when a given property 
- * is not found or cannot be read from the <b>ickle.orm.properties</b> file. 
+ * <p>This {@link RuntimeException} is thrown when a given property cannot be read 
+ * from the manifest.</p> 
  * 
  * @version 1.1.0
  * <br><br> 
+ * @since 1.1.0
+ * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class PropertyReadException extends PackratRuntimeException {
+public class MetaDataReadException extends PackratRuntimeException {
 
 	
 	private static final long serialVersionUID = 2295492366218411918L;
 	
 
 	/**
-	 * <p>Provides additional information about the missing property.
+	 * <p>Provides additional information about the missing property.</p>
 	 * 
 	 * @param property
 	 * 			the missing {@link PROPERTY}
 	 * 
 	 * @since 1.1.0
 	 */
-	public PropertyReadException(PROPERTY property, Throwable rootCause) {
+	public MetaDataReadException(PROPERTY property, Throwable rootCause) {
 	
-		this("Failed to read " + property.getKey() + " from file packrat.properties." +
-			 " Please add the " + property.getKey() + " property with suitable value. ", rootCause);
+		this(new StringBuilder("Failed to read <").append(property.getKey())
+			.append("> from the manifest").append(" Please add the <").append(property.getKey())
+			.append("> property with a suitable value. ").toString(), rootCause);
 	}
 	
 	/**
@@ -56,14 +59,14 @@ public class PropertyReadException extends PackratRuntimeException {
 	 * 
 	 * @since 1.1.0
 	 */
-	public PropertyReadException() {}
+	public MetaDataReadException() {}
 
 	/**
 	 * <p>See {@link PackratRuntimeException#PackratRuntimeException(String)}.
 	 *
 	 * @since 1.1.0
 	 */
-	public PropertyReadException(String detailMessage) {
+	public MetaDataReadException(String detailMessage) {
 		super(detailMessage);
 	}
 
@@ -72,7 +75,7 @@ public class PropertyReadException extends PackratRuntimeException {
 	 *
 	 * @since 1.1.0
 	 */
-	public PropertyReadException(Throwable throwable) {
+	public MetaDataReadException(Throwable throwable) {
 		super(throwable);
 	}
 
@@ -81,7 +84,7 @@ public class PropertyReadException extends PackratRuntimeException {
 	 *
 	 * @since 1.1.0
 	 */
-	public PropertyReadException(String detailMessage, Throwable throwable) {
+	public MetaDataReadException(String detailMessage, Throwable throwable) {
 		super(detailMessage, throwable);
 	}
 }

@@ -22,16 +22,17 @@ import com.lonepulse.packrat.PackratRuntimeException;
  * #L%
  */
 
-
 /**
- * <p>This {@link RuntimeException} is thrown when a particular property 
- * is not found in <b>packrat.properties</b>. 
+ * <p>This {@link RuntimeException} is thrown when a particular property is missing 
+ * or empty in the manifest.</p> 
  * 
  * @version 1.1.0
  * <br><br> 
+ * @since 1.1.0
+ * <br><br> 
  * @author <a href="mailto:sahan@lonepulse.com">Lahiru Sahan Jayasinghe</a>
  */
-public class PropertyNotFoundException extends PackratRuntimeException {
+public class MetaDataNotFoundException extends PackratRuntimeException {
 
 
 	private static final long serialVersionUID = 2314517192321917002L;
@@ -45,9 +46,10 @@ public class PropertyNotFoundException extends PackratRuntimeException {
 	 * 
 	 * @since 1.1.0
 	 */
-	public PropertyNotFoundException(String property) {
+	public MetaDataNotFoundException(String property) {
 		
-		super("Property " + property + " is missing in the assets directory. ");
+		super(new StringBuilder("Property <").append(property)
+			  .append("> is missing in the manifest. ").toString());
 	}
 
 	/**
@@ -55,7 +57,7 @@ public class PropertyNotFoundException extends PackratRuntimeException {
 	 *
 	 * @since 1.1.0
 	 */
-	public PropertyNotFoundException(Throwable throwable) {
+	public MetaDataNotFoundException(Throwable throwable) {
 		super(throwable);
 	}
 
@@ -64,7 +66,7 @@ public class PropertyNotFoundException extends PackratRuntimeException {
 	 *
 	 * @since 1.1.0
 	 */
-	public PropertyNotFoundException(String detailMessage, Throwable throwable) {
+	public MetaDataNotFoundException(String detailMessage, Throwable throwable) {
 		super(detailMessage, throwable);
 	}
 }
